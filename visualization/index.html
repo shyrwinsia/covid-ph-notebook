@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<svg width="1300" height="1800" style="width:100%;margin:0 auto"></svg>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script>
+  const svg = d3.select("svg")
+  const width = svg.attr("width")
+  const height = svg.attr("height")
+  // TODO reset and center
+  svg
+    .attr("viewBox", [0, 0, width, height])
+    .on("click", reset);
+
+  const g = svg.append("g")
+
+  const zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed)
+
+  function zoomed() {
+    const { transform } = d3.event;
+    g.attr("transform", transform);
+    g.attr("stroke-width", 1 / transform.k);
+  }
+
+  function reset() {
+    svg.transition().duration(750).call(
+      zoom.transform,
+      d3.zoomIdentity,
+      d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
+    );
+  }
+
+  var promises = [
+    d3.json("ph.json")
+  ]
+
+  Promise.all(promises).then(ready)
+
+  function ready([ph]) {
+    var m = topojson.feature(ph, ph.objects.ph).features
+    var p = d3.geoIdentity()
+      .reflectY(true)
+      .translate([width / 8, height / 1.25])
+    var path = d3.geoPath().projection(p)
+    g.append("g")
+      .attr("fill", "#eee")
+      .attr("cursor", "pointer")
+      .attr("stroke", "#aaa")
+      .selectAll("path")
+      .data(m)
+      .join("path")
+      .on("click", clicked)
+      .attr("d", path)
+    svg.call(zoom);
+
+    function clicked(d) {
+      const [[x0, y0], [x1, y1]] = path.bounds(d);
+      d3.event.stopPropagation();
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
+          .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+        d3.mouse(svg.node())
+      );
+    }
+  }
+
+
+</script>
