@@ -75,9 +75,8 @@ html,
       margin: 2em 0 0 0;
       font-size: 0.8em;
       font-weight: bold;
-      opacity: 0.4;
+      opacity: 0.6;
     }
-
 
     #header .description {
       margin: 2em 0 0 0;
@@ -86,8 +85,11 @@ html,
       line-height: 1.4em;
     }
 
-     #header .sources {
+    #header .sources {
       margin: 0.2em 0 0 0;
+    }
+    
+    #header .sources a {
       font-size: 0.7em;
       opacity: 0.4;
     }
