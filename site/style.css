@@ -16,7 +16,7 @@ html,
 
     .tooltip {
       position: absolute;
-      padding: 1.4em;
+      padding: 1.5em;
       font-size: 0.8em;
       pointer-events: none;
       background: #ffffff;
@@ -67,67 +67,52 @@ html,
     }
 
     #header h1 {
-      line-height: 1.2em;
-      font-size: 2.2em;
+      font-size: 1.2em;
       font-weight: bold;
     }
 
     #header h2 {
-      line-height: 1.2em;
-      font-size: 1.4em;
+      line-height: 1.4;
+      font-size: 1em;
       font-weight: bold;
       opacity: 0.4;
     }
 
     #header h3 {      
-      margin: 2em 0 0 0;
-      font-size: 0.8em;
+      margin: 3em 0 0 0;
+      font-size: 0.7em;
       font-weight: bold;
       opacity: 0.6;
     }
 
     #header .description {
-      margin: 2em 0 0 0;
-      font-size: 1em;
+      margin: 1em 0 0 0;
+      font-size: 0.8em;
+      line-height: 1.4;
       opacity: 0.8;
-      line-height: 1.4em;
     }
 
     #header .sources {
-      margin: 0.2em 0 0 0;
+      margin: 2em 0 0 0;
+      margin: 0;
     }
     
     #header .sources a {
-      font-size: 0.7em;
+      display: block;
+      margin: 0.2em 0;
+      font-size: 0.6em;
       opacity: 0.4;
     }
 
     .wide {
-      width: 7em;
+      width: 8em;
     }
 
     #legend text {
-      font-size: 0.9em;
-      color: #333;
+      font-size: 0.8em;
+      opacity: 0.8;
+      color: #000000;
       font-weight: 400;
-    }
-
-    #controls {
-      position: absolute;
-      margin: 1.5em;
-      top:  14em;
-      color: #ffffff;
-    }
-
-    #controls .date {
-      font-size: 1em;
-      margin: 0;
-      padding: 0;
-    }
-
-    .slider {
-      margin-top: 0.5em;
-      width: 10em;
     }
 
     a {
@@ -135,9 +120,9 @@ html,
     }
 
     #hide, #show {
-      margin: 1.5em 0 0 0;
+      font-size: 0.6em;
+      margin: 1em 0 0 0;
       opacity: 0.4;
-      font-size: 0.8em;
     }
     
     

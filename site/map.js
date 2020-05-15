@@ -60,15 +60,12 @@ function draw(width, height) {
     .attr("class", "tooltip")
     .style("opacity", 0)
 
-  const extentY = (height) > 1000 ? (height / 2) : 1000
-
-  console.log(width);
-  console.log(height);
+  console.log("w: " + width + "x h: " + height);
 
   const zoom = d3.zoom()
-    .scaleExtent([1 / 4, 20]).translateExtent([
-      [-(width / 2), -extentY],
-      [width + (width / 2), height + (height / 2)]
+    .scaleExtent([1 / 1.5, 10]).translateExtent([
+      [-(width * 0.60), -(height * 0.80)],
+      [width + (width * 0.60), height + (height * 0.80)]
     ])
     .on("zoom", zoomed)
   reset()
