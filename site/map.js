@@ -60,7 +60,7 @@ function draw(width, height) {
     .attr("class", "tooltip")
     .style("opacity", 0)
 
-  console.log("w: " + width + "x h: " + height);
+  console.log("w:" + width + " h:" + height);
 
   const zoom = d3.zoom()
     .scaleExtent([1 / 1.5, 10]).translateExtent([
@@ -84,6 +84,7 @@ function draw(width, height) {
     )
   }
 
+  // TODO Optimize for fetching
   // var promises = [
   //   d3.json("https://raw.githubusercontent.com/shyrwinsia/covidph-notebook/master/visualization/ph.json")
   // ]
