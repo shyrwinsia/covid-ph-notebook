@@ -46,9 +46,7 @@ function drawLegend(svg, width) {
     .style("fill", "rgba(255,255,255,0.8")
     .style("font-size", "0.7em")
     .text("Cases per 100,000 people")
-
 }
-
 
 function draw(width, height) {
   const svg = d3.select("svg")
@@ -108,6 +106,7 @@ function draw(width, height) {
       .enter()
       .append("path")
       .attr("fill", function (d) {
+        console.log(d.properties.NAME_2)
         if (d.properties.TYPE_2 == "Waterbody")
           return "rgba(255, 255, 255, 0.0)"
         else
