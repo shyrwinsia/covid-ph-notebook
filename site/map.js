@@ -4,7 +4,7 @@ const width = window.innerWidth
 const height = window.innerHeight
 draw(width, height)
 
-var legendText = ["", "50", "", "100", "", "200", "", "400"]
+var legendText = ["", "50", "", "100", "", "200", "", "400+"]
 var legendColors = ["#fff7bc", "#fee391", "#fec44f", "#fe9929", "#ec7014", "#cc4c02", "#993404", "#662506"]
 
 var color = d3.scaleThreshold()
@@ -24,30 +24,31 @@ function drawLegend(svg) {
     .attr("transform", function (d, i) { return "translate(" + i * 31 + ",0)"; });
 
   legenditem.append("rect")
-    .attr("x", 30)
-    .attr("y", 200)
+    .attr("x", width - 300)
+    .attr("y", 60)
     .attr("width", 30)
     .attr("height", 6)
     .attr("class", "rect")
     .style("fill", function (d, i) { return legendColors[i]; });
 
   legenditem.append("text")
-    .attr("x", 30)
-    .attr("y", 220)
+    .attr("x", width - 300)
+    .attr("y", 80)
     .style("text-anchor", "middle")
     .style("fill", "rgba(255,255,255,0.8")
     .style("font-size", "0.6em")
     .text(function (d, i) { return legendText[i]; });
 
   legend.append("text")
-    .attr("x", 95)
-    .attr("y", 190)
+    .attr("x", width - 235)
+    .attr("y", 50)
     .style("text-anchor", "middle")
     .style("fill", "rgba(255,255,255,1")
     .style("font-size", "0.7em")
     .text("Cases per 100,000 people")
 
 }
+
 
 function draw(width, height) {
   const svg = d3.select("svg")
@@ -94,6 +95,7 @@ function draw(width, height) {
   Promise.all(promises).then(ready)
 
   function ready([ph]) {
+    console.log("Drawing")
     var m = topojson.feature(ph, ph.objects.ph).features
     var p = d3.geoIdentity()
       .reflectY(true)
@@ -147,6 +149,7 @@ function draw(width, height) {
       })
 
     drawLegend(svg)
+    // drawSlider()
     svg.call(zoom)
   }
 }
