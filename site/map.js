@@ -106,7 +106,6 @@ function draw(width, height) {
       .enter()
       .append("path")
       .attr("fill", function (d) {
-        console.log(d.properties.NAME_2)
         if (d.properties.TYPE_2 == "Waterbody")
           return "rgba(255, 255, 255, 0.0)"
         else
