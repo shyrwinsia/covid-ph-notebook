@@ -37,7 +37,7 @@
     }
 
     .tooltip table {
-      margin: 0;
+      margin: 0.8em 0 0 0;
       padding: 0;
     }
 
@@ -48,14 +48,13 @@
     .tooltip p {
       font-weight: bold;
       color: rgba(0, 0, 0, 0.8);
-      margin: 0 0 0.8em 0;
+      margin: 0;
       padding: 0;
     }
 
     #header {
       position: absolute;
       margin: 2em;
-
     }
 
     #header h1,
@@ -83,6 +82,10 @@
       font-size: 0.8em;
       opacity: 0.4;
     }
+
+    .wide {
+      width: 7em;
+    }
   </style>
 </head>
 
@@ -98,7 +101,9 @@
   </div>
 </body>
 
+
 <script>
+  // TODO Add a reset button
   const width = window.innerWidth
   const height = window.innerHeight
   draw(width, height)
@@ -134,6 +139,10 @@
       );
     }
 
+    // var promises = [
+    //   d3.json("https://raw.githubusercontent.com/shyrwinsia/covidph-notebook/master/visualization/ph.json")
+    // ]
+
     var promises = [
       d3.json("ph.json")
     ]
@@ -147,26 +156,42 @@
         .translate([width / 2, height])
       var path = d3.geoPath().projection(p)
       var munipath = g.append("g")
-        .attr("fill", "#eee")
         .attr("stroke", "#ccc")
         .selectAll("path")
         .data(m)
-        .join("path")
+        .enter()
+        .append("path")
+        .attr("fill", function (d) {
+          if (d.properties.TYPE_2 == "Waterbody")
+            return "rgba(255, 255, 255, 0.0)"
+          else
+            return "#eee"
+        })
         .attr("d", path)
+
 
       munipath
         .on("mouseover", function (d) {
           tooltip.transition()
             .duration(250)
             .style("opacity", 1)
-          tooltip.html(
-            "<p>" + d.properties.NAME_2 + "</p>" +
-            "<table><tbody><tr><td class='wide'>Total cases:</td><td>200</td></tr>" +
-            "<tr><td>Test done:</td><td>200</td></tr>" +
-            "<tr><td>Population:</td><td>400,000</td></tr></tbody></table>"
-          )
-            .style("left", (d3.event.pageX + 15) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
+
+          if (d.properties.TYPE_2 == "Waterbody")
+            tooltip.html(
+              "<p>" + d.properties.NAME_2 + "</p>"
+            )
+              .style("left", (d3.event.pageX + 15) + "px")
+              .style("top", (d3.event.pageY - 28) + "px")
+
+          else
+            tooltip.html(
+              "<p>" + d.properties.NAME_2 + "</p>" +
+              "<table><tbody><tr><td class='wide'>Total cases:</td><td>200</td></tr>" +
+              "<tr><td>Test done:</td><td>200</td></tr>" +
+              "<tr><td>Population:</td><td>400,000</td></tr></tbody></table>"
+            )
+              .style("left", (d3.event.pageX + 15) + "px")
+              .style("top", (d3.event.pageY - 28) + "px")
 
           d3.select(this).attr("opacity", "0.8")
         })
@@ -178,8 +203,10 @@
           d3.select(this).attr("opacity", "1")
         });
 
+
       svg.call(zoom);
     }
+
   }
 
 
