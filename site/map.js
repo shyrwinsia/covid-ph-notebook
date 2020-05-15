@@ -60,9 +60,14 @@ function draw(width, height) {
     .attr("class", "tooltip")
     .style("opacity", 0)
 
+  const extentY = (height) > 1000 ? (height / 2) : 1000
+
+  console.log(width);
+  console.log(height);
+
   const zoom = d3.zoom()
-    .scaleExtent([1, 20]).translateExtent([
-      [-(width / 2), -(height / 2)],
+    .scaleExtent([1 / 4, 20]).translateExtent([
+      [-(width / 2), -extentY],
       [width + (width / 2), height + (height / 2)]
     ])
     .on("zoom", zoomed)
@@ -157,3 +162,18 @@ function redraw() {
 }
 
 window.addEventListener("resize", redraw)
+
+document.getElementById("hide-link").addEventListener("click", function (event) {
+  event.preventDefault();
+  document.getElementById("hide").style.display = "none";
+  document.getElementById("show").style.display = "block";
+  document.getElementById("header-content").style.display = "none";
+}, false);
+
+
+document.getElementById("show-link").addEventListener("click", function (event) {
+  event.preventDefault();
+  document.getElementById("show").style.display = "none";
+  document.getElementById("hide").style.display = "block";
+  document.getElementById("header-content").style.display = "block";
+}, false);
