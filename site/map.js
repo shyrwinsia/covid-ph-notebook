@@ -11,8 +11,8 @@ var color = d3.scaleThreshold()
   .domain([0, 50, 100, 150, 200, 300, 400])
   .range(legendColors);
 
-
-function drawLegend(svg) {
+function drawLegend(svg, width) {
+  svg.selectAll("#legend").remove()
   var legend = svg.append("g")
     .attr("id", "legend");
 
@@ -43,7 +43,7 @@ function drawLegend(svg) {
     .attr("x", width - 235)
     .attr("y", 50)
     .style("text-anchor", "middle")
-    .style("fill", "rgba(255,255,255,1")
+    .style("fill", "rgba(255,255,255,0.8")
     .style("font-size", "0.7em")
     .text("Cases per 100,000 people")
 
@@ -147,13 +147,10 @@ function draw(width, height) {
 
         d3.select(this).attr("stroke", "#081d33")
       })
-
-    drawLegend(svg)
-    // drawSlider()
+    drawLegend(svg, width)
     svg.call(zoom)
   }
 }
-
 
 function redraw() {
   const width = window.innerWidth
