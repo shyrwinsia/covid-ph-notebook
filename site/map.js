@@ -40,12 +40,12 @@ function drawLegend(svg) {
     .text(function (d, i) { return legendText[i]; });
 
   legend.append("text")
-    .attr("x", 75)
+    .attr("x", 95)
     .attr("y", 190)
     .style("text-anchor", "middle")
     .style("fill", "rgba(255,255,255,1")
     .style("font-size", "0.7em")
-    .text("Cases per 100,000")
+    .text("Cases per 100,000 people")
 
 }
 
@@ -100,7 +100,7 @@ function draw(width, height) {
       .translate([width / 2, height])
     var path = d3.geoPath().projection(p)
     var munipath = g.append("g")
-      .attr("stroke", "#ccc")
+      .attr("stroke", "#081d33")
       .selectAll("path")
       .data(m)
       .enter()
@@ -117,7 +117,7 @@ function draw(width, height) {
       .on("mouseover", function (d) {
         tooltip.transition()
           .duration(250)
-          .style("opacity", 1)
+          .style("opacity", 0.9)
 
         if (d.properties.TYPE_2 == "Waterbody")
           tooltip.html(
@@ -136,14 +136,14 @@ function draw(width, height) {
             .style("left", (d3.event.pageX + 15) + "px")
             .style("top", (d3.event.pageY - 28) + "px")
 
-        d3.select(this).attr("opacity", "0.8")
+        d3.select(this).attr("stroke", "#fff")
       })
       .on("mouseout", function (d) {
         tooltip.transition()
           .duration(250)
           .style("opacity", 0)
 
-        d3.select(this).attr("opacity", "1")
+        d3.select(this).attr("stroke", "#081d33")
       })
 
     drawLegend(svg)
