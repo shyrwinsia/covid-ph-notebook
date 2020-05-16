@@ -4,11 +4,11 @@ const width = window.innerWidth
 const height = window.innerHeight
 draw(width, height)
 
-var legendText = ["", "50", "", "100", "", "200", "", "400+"]
+var legendText = ["", "1", "", "10", "", "100", "", "1000+"]
 var legendColors = ["#fff7bc", "#fee391", "#fec44f", "#fe9929", "#ec7014", "#cc4c02", "#993404", "#662506"]
 
 var color = d3.scaleThreshold()
-  .domain([0, 50, 100, 150, 200, 300, 400])
+  .domain([0, 1, 5, 10, 50, 100, 500])
   .range(legendColors);
 
 function drawLegend(svg, width) {
@@ -85,12 +85,18 @@ function draw(width, height) {
   }
 
   // TODO Optimize for fetching
+  // TODO Optimize zoom and pan
   // var promises = [
   //   d3.json("https://raw.githubusercontent.com/shyrwinsia/covidph-notebook/master/visualization/ph.json")
   // ]
 
+  var cases = d3.map();
   var promises = [
-    d3.json("ph.json")
+    d3.json("edited.json"),
+    d3.csv("data.csv", function (d) {
+      let c = +d.cases
+      cases.set(d.admin_code, c)
+    })
   ]
 
   Promise.all(promises).then(ready)
@@ -104,6 +110,7 @@ function draw(width, height) {
     var path = d3.geoPath().projection(p)
     var munipath = g.append("g")
       .attr("stroke", "#081d33")
+      .attr("fill", "#444444")
       .selectAll("path")
       .data(m)
       .enter()
@@ -111,8 +118,17 @@ function draw(width, height) {
       .attr("fill", function (d) {
         if (d.properties.TYPE_2 == "Waterbody")
           return "rgba(255, 255, 255, 0.0)"
-        else
-          return color(Math.random() * 400)
+        else {
+          if (!d.properties.ADMIN_CODE) return "red"
+
+          let value = cases.get(d.properties.ADMIN_CODE)
+          if (!value) return "#FFFFFF"
+          else if (value == 0) return "#FFFFFF"
+          else return color(value)
+
+          // if (value < 1)
+          //   value = Math.round(num * 100) / 100
+        }
       })
       .attr("d", path)
 
@@ -132,12 +148,13 @@ function draw(width, height) {
         else
           tooltip.html(
             "<p>" + d.properties.NAME_2 + "</p>" +
-            "<table><tbody><tr><td class='wide'>Total cases:</td><td>200</td></tr>" +
-            "<tr><td>Test done:</td><td>200</td></tr>" +
-            "<tr><td>Population:</td><td>400,000</td></tr></tbody></table>"
+            "<table><tbody><tr><td class='wide'>Cases per 100,000:</td><td>" + cases.get(d.properties.ADMIN_CODE) + "</td></tr>" +
+            "<tr><td>Test done:</td><td>No data</td></tr>" +
+            "<tr><td>Population:</td><td>No data</td></tr></tbody></table>"
           )
             .style("left", (d3.event.pageX + 15) + "px")
             .style("top", (d3.event.pageY - 28) + "px")
+
 
         d3.select(this).attr("stroke", "#fff")
       })
