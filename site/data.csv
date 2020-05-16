@@ -1,2 +1,3 @@
-date,admin_code,cases
-
+date,admin_code,norm_cases,cases,active,recovered,deaths,population
+1,PH072217000,254,5496,3940,1293,54,837454
+1,PH072226000,14,36,30,3,4,34254

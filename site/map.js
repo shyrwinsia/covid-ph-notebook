@@ -84,18 +84,22 @@ function draw(width, height) {
     )
   }
 
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   // TODO Optimize for fetching
   // TODO Optimize zoom and pan
+  // Manila PH1339[00000]
   // var promises = [
   //   d3.json("https://raw.githubusercontent.com/shyrwinsia/covidph-notebook/master/visualization/ph.json")
   // ]
 
   var cases = d3.map();
   var promises = [
-    d3.json("edited.json"),
+    d3.json("ph.json"),
     d3.csv("data.csv", function (d) {
-      let c = +d.cases
-      cases.set(d.admin_code, c)
+      cases.set(d.admin_code, d)
     })
   ]
 
@@ -119,12 +123,10 @@ function draw(width, height) {
         if (d.properties.TYPE_2 == "Waterbody")
           return "rgba(255, 255, 255, 0.0)"
         else {
-          if (!d.properties.ADMIN_CODE) return "red"
-
           let value = cases.get(d.properties.ADMIN_CODE)
-          if (!value) return "#FFFFFF"
+          if (!value) return "black"
           else if (value == 0) return "#FFFFFF"
-          else return color(value)
+          else return color(value.norm_cases)
 
           // if (value < 1)
           //   value = Math.round(num * 100) / 100
@@ -145,25 +147,41 @@ function draw(width, height) {
             .style("left", (d3.event.pageX + 15) + "px")
             .style("top", (d3.event.pageY - 28) + "px")
 
-        else
-          tooltip.html(
-            "<p>" + d.properties.NAME_2 + "</p>" +
-            "<table><tbody><tr><td class='wide'>Cases per 100,000:</td><td>" + cases.get(d.properties.ADMIN_CODE) + "</td></tr>" +
-            "<tr><td>Test done:</td><td>No data</td></tr>" +
-            "<tr><td>Population:</td><td>No data</td></tr></tbody></table>"
-          )
-            .style("left", (d3.event.pageX + 15) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
+        else {
+          var mun = cases.get(d.properties.ADMIN_CODE)
+          if (mun)
+            tooltip.html(
+              "<p>" + d.properties.NAME_2 + ", " + d.properties.NAME_1 + "</p>" +
+              "<table><tbody>" +
+              "<tr><td class='wide'>Total Cases:</td><td class='data'>" + numberWithCommas(mun.cases) + "</td></tr>" +
+              "<tr><td>per 100,000:</td><td class='data'>" + numberWithCommas(mun.norm_cases) + "</td></tr>" +
+              "<tr><td>Active:</td><td class='data'>" + numberWithCommas(mun.active) + "</td></tr>" +
+              "<tr><td>Recovered:</td><td class='data'>" + numberWithCommas(mun.recovered) + "</td></tr>" +
+              "<tr><td>Deaths:</td><td class='data'>" + numberWithCommas(mun.deaths) + "</td></tr>" +
+              "<tr><td>Population:</td><td class='data'>" + numberWithCommas(mun.population) + "</td></tr>" +
+              "</tbody></table>"
+            )
+              .style("left", (d3.event.pageX + 15) + "px")
+              .style("top", (d3.event.pageY - 28) + "px")
+          else
+            tooltip.html(
+              "<p>" + d.properties.NAME_2 + ", " + d.properties.NAME_1 + "</p>" +
+              "<table><tbody>" +
+              "<tr><td>No data</td></tr>" +
+              "</tbody></table>"
+            )
+              .style("left", (d3.event.pageX + 15) + "px")
+              .style("top", (d3.event.pageY - 28) + "px")
 
-
-        d3.select(this).attr("stroke", "#fff")
+        }
+        d3.select(this).attr("opacity", "0.6")
       })
       .on("mouseout", function (d) {
         tooltip.transition()
           .duration(250)
           .style("opacity", 0)
 
-        d3.select(this).attr("stroke", "#081d33")
+        d3.select(this).attr("opacity", "1")
       })
     drawLegend(svg, width)
     svg.call(zoom)

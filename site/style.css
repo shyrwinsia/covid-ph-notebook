@@ -36,6 +36,10 @@ html,
       color: rgba(0, 0, 0, 0.8);
     }
 
+    .tooltip .data {
+      text-align: right;
+    }
+
     .tooltip p {
       font-weight: bold;
       color: rgba(0, 0, 0, 1);
