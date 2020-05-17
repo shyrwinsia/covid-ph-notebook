@@ -28,7 +28,6 @@ __pycache__
 .#*
 .coverage
 .pytest_cache
-src
 
 *.swp
 *.map
@@ -47,3 +46,4 @@ geckodriver.log
 .parcel-cache
 node_modules
 log
+.cache
