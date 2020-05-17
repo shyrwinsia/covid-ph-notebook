@@ -43,3 +43,7 @@ package-lock.json
 geckodriver.log
 *.iml
 .~lock*
+
+.parcel-cache
+node_modules
+log
