@@ -1,132 +1,197 @@
 html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: #081d33;
-      overflow: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #081d33;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-    #content {
-      width: 100%;
-      height: 100%;
-      margin: 0 auto;
-    }
+#content {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
 
-    .tooltip {
-      position: absolute;
-      padding: 1.5em;
-      font-size: 0.8em;
-      pointer-events: none;
-      background: #ffffff;
-      border-radius: 0.5em;
+.tooltip {
+    position: absolute;
+    padding: 1.5em;
+    font-size: 0.8em;
+    pointer-events: none;
+    background: #ffffff;
+    border-radius: 0.5em;
+    -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
+}
 
-      -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
-      -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
-      box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.4);
-    }
+.tooltip table {
+    margin: 0.8em 0 0 0;
+    padding: 0;
+}
 
-    .tooltip table {
-      margin: 0.8em 0 0 0;
-      padding: 0;
-    }
+.tooltip td {
+    color: rgba(0, 0, 0, 0.8);
+}
 
-    .tooltip td {
-      color: rgba(0, 0, 0, 0.8);
-    }
+.tooltip .data {
+    text-align: right;
+}
 
-    .tooltip .data {
-      text-align: right;
-    }
+.tooltip p {
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+    padding: 0;
+}
 
-    .tooltip p {
-      font-weight: bold;
-      color: rgba(0, 0, 0, 1);
-      margin: 0;
-      padding: 0;
-    }
+#header {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    position: absolute;
+    padding: 2em;
+    margin: 2em;
+    width: 20%;
+}
 
-    #header {
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 0.5em;
-      position: absolute;
-      padding: 2em;
-      margin: 2em;
-      width: 20%;
-    }
+.hidden {
+    visibility: hidden;
+    display: none;
+}
 
-    .hidden {
-      visibility: hidden;
-      display: none;
-    }
+#header h1,
+#header h2,
+#header h3,
+#header p {
+    color: #ffffff;
+    padding: 0;
+    margin: 0;
+}
 
-    #header h1,
-    #header h2,
-    #header h3,
-    #header p {
-      color: #ffffff;
-      padding: 0;
-      margin: 0;
-    }
+#header h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
-    #header h1 {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
+#header h2 {
+    line-height: 1.4;
+    font-size: 0.8em;
+    font-weight: bold;
+    opacity: 0.4;
+}
 
-    #header h2 {
-      line-height: 1.4;
-      font-size: 1em;
-      font-weight: bold;
-      opacity: 0.4;
-    }
+#header h3 {
+    margin: 3em 0 0 0;
+    font-size: 0.7em;
+    font-weight: bold;
+    opacity: 0.6;
+}
 
-    #header h3 {      
-      margin: 3em 0 0 0;
-      font-size: 0.7em;
-      font-weight: bold;
-      opacity: 0.6;
-    }
+#header .description {
+    margin: 1em 0 0 0;
+    font-size: 0.8em;
+    line-height: 1.4;
+    opacity: 0.8;
+}
 
-    #header .description {
-      margin: 1em 0 0 0;
-      font-size: 0.8em;
-      line-height: 1.4;
-      opacity: 0.8;
-    }
+#header .sources {
+    margin: 2em 0 0 0;
+    margin: 0;
+}
 
-    #header .sources {
-      margin: 2em 0 0 0;
-      margin: 0;
-    }
-    
-    #header .sources a {
-      display: block;
-      margin: 0.2em 0;
-      font-size: 0.6em;
-      opacity: 0.4;
-    }
+#header .sources a {
+    display: block;
+    margin: 0.2em 0;
+    font-size: 0.6em;
+    opacity: 0.4;
+}
 
-    .wide {
-      width: 10em;
-    }
+.wide {
+    width: 12em;
+}
 
-    #legend text {
-      font-size: 0.8em;
-      opacity: 0.8;
-      color: #000000;
-      font-weight: 400;
-    }
+#legend text {
+    font-size: 0.8em;
+    opacity: 0.8;
+    color: #000000;
+    font-weight: 400;
+}
 
-    a {
-      color: #ffffff
-    }
+a {
+    color: #ffffff
+}
 
-    #hide, #show {
-      font-size: 0.6em;
-      margin: 1em 0 0 0;
-      opacity: 0.4;
-    }
-    
-    
+#hide,
+#show {
+    font-size: 0.6em;
+    margin: 1em 0 0 0;
+    opacity: 0.4;
+}
+
+.slidecontainer {
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+    width: 20%;
+}
+
+.slidecontainer h1 {
+    color: white;
+    text-align: right;
+    margin: 0 0 0.2em 0;
+    padding: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    background: #ffffff;
+    outline: none;
+    opacity: 0.6;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #081d33;
+    border: 3px solid #ffffff;
+    cursor: pointer;
+    -webkit-transition: .2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    width: 16px;
+    height: 16px;
+}
+
+.slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #081d33;
+    border: 3px solid #ffffff;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.slider::-moz-range-thumb:hover {
+    width: 16px;
+    height: 16px;
+}
+
+.slider::-ms-track {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #081d33;
+    border: 3px solid #ffffff;
+    cursor: pointer;
+}
